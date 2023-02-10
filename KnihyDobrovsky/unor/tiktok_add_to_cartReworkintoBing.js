@@ -30,7 +30,7 @@
         console.log("BING other",type);
         window.uetq.push('event','add_to_cart', {
           'ecomm_prodid' : productsIds[0], 
-          'ecomm_pagetype': type,
+          {/* 'ecomm_pagetype': type, */}
           'ecomm_totalvalue': order.totalValue,
           'revenue_value': order.revenue,
           'currency':currency,
