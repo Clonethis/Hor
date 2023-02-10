@@ -1,0 +1,119 @@
+<script>
+	(function aac_bing_page(w, d, t, r, u) {
+		try {
+			{var f,n,i;
+			w[u]=w[u]||[],f=function(){
+			var o={ti:"199002299"};
+			o.q=w[u],w[u]=new UET(o),w[u].push("pageLoad")
+			},n=d.createElement(t),n.src=r,n.async=1,n.onload=n.onreadystatechange=function()
+			{var s=this.readyState;
+			s&&s!=="loaded"&&s!=="complete"||(f(),n.onload=n.onreadystatechange=null)
+			},i=d.getElementsByTagName(t)[0],i.parentNode.insertBefore(n,i)
+			}
+
+			var currency = {{aac.page.currencyCode}};
+			var page = {{aac.page}} || {};
+			var cart = {{aac.cart}};
+			var productsIds = {{aac.products.ids}};
+			var products = {{aac.products}} || [];
+			var order = {{aac.order}};
+      
+
+			var initBing = function () {
+				window.uetq = window.uetq || [];
+			}
+
+			var track = function (data, event, action) {
+				initBing();
+				event = event || 'event';
+				action = action || '';
+				data = data || {};
+				if ({{Debug Mode}}){
+					console.log('BING TRACKING: PUSH', data, JSON.stringify(data));
+				}
+
+				if (typeof data === 'object') {
+					window.uetq.push(event, action, data);
+				}
+
+			}
+
+			var getProducts = function () {
+				var pds = [];
+				for (var i = 0; i < products.length; i++) {
+					var currentProduct = products[i];
+					pds.push({
+						'productid': productsIds[i], 
+						'quantity': currentProduct.quantity,
+						'price': currentProduct.fullPrice,
+					});
+				}
+				return pds;
+			}
+
+			switch (page.type) {
+
+				case 'home':
+				case 'homepage':
+					track({
+						'ecomm_pagetype': 'home',
+					});
+					break;
+
+				case 'product.detail':
+				case 'detail':
+					track({
+						'ecomm_prodid': page.context.products[0].id,
+						'ecomm_pagetype': 'product',
+					});
+					break;
+
+				case 'category':
+					track({
+						'ecomm_category': page.category.id,
+						'ecomm_prodid': productsIds,
+						'ecomm_pagetype': 'category'
+					});
+
+					break;
+
+				case 'checkout':
+					if (cart.products != []) {
+						track({
+							'ecomm_pagetype': 'cart',
+							'ecomm_totalvalue': order.totalValue,
+							'revenue_value': order.revenue,
+							'currency': currency,
+							'items': getProducts(),
+						});
+					}
+
+					break;	
+
+				case 'purchase':
+					track({
+						'transaction_id': order.id,
+						'ecomm_prodid': productsIds,
+						'ecomm_pagetype': 'purchase',
+						'ecomm_totalvalue': order.totalValue,
+						'revenue_value': order.revenue,
+						'currency': currency,
+						'items': getProducts(),
+					}, action = 'purchase');
+
+					break;
+
+        //TODO implement Cart event that gets fired on action.add.products
+				case 'other':
+				break;
+
+			}
+		{{aac.gtm}}.onHtmlSuccess({{HTML ID}});
+    } catch (err) {
+		console.log("BING ERROR: ", err);
+		
+		('tracking/js/aac.bing.page', err);
+		{{aac.gtm}}.onHtmlFailure({{HTML ID}});
+	}
+  }) (window, document, "script", "//bat.bing.com/bat.js", "uetq");
+</script>
