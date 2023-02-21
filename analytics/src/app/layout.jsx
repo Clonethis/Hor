@@ -1,3 +1,4 @@
+import GTMBody from '@/pages/api/GTM_body'
 import './globals.css'
 
 export default function RootLayout({ children }) {
@@ -8,7 +9,9 @@ export default function RootLayout({ children }) {
         head.jsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
       */}
       <head />
-      <body>{children}</body>
+      <body>
+      <GTMBody/>
+      {children}</body>
     </html>
   )
 }
