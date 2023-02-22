@@ -1,4 +1,4 @@
-import GTMBody from '@/pages/api/GTM_body'
+// import GTMBody from '@/Functions/GTM_body'
 import './globals.css'
 
 export default function RootLayout({ children }) {
@@ -10,7 +10,7 @@ export default function RootLayout({ children }) {
       */}
       <head />
       <body>
-      <GTMBody/>
+      {/* <GTMBody/> */}
       {children}</body>
     </html>
   )

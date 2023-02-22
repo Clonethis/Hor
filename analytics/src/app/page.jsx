@@ -12,13 +12,18 @@ export default function Home() {
           Get started by editing&nbsp;
           <code className={styles.code}>app/page.jsx</code>
         </p>
+        
+        <h2>
+
+        <a href='https://kisk.sabatka.net/eshop/kosik'>Sabatka kisk</a>
+        </h2>
         <div>
           <a
             href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
             target="_blank"
             rel="noopener noreferrer"
           >
-            By{' '}
+
             <Image
               src="/vercel.svg"
               alt="Vercel Logo"
