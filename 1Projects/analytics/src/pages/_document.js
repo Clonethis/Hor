@@ -1,6 +1,7 @@
 // import CustomHead from '@/modules/CustomHead'
 import CustomHead from '@/modules/CustomHead'
 import { Html, Head,Main, NextScript } from 'next/document'
+import CustomBodyGTM from './CustomBodyGTM'
 
 
 
@@ -14,6 +15,7 @@ export default function Document() {
       <CustomHead/>
       </Head>
       <body>
+        <CustomBodyGTM/>
         <Main />
         <NextScript />
       </body>
